@@ -1,4 +1,4 @@
-import axios, { AxiosError, AxiosResponse } from "axios";
+import axios, { AxiosResponse } from "axios";
 
 export default class HttpService {
   apiUrl: string;
@@ -9,20 +9,20 @@ export default class HttpService {
     this.authKey = key;
   }
 
-  get = async (
-    url: string,
-    query: object
-  ): Promise<AxiosResponse | AxiosError> => {
-    try {
-      const response = await axios.get(this.apiUrl + url, {
-        params: {
-          key: this.authKey,
-          ...query,
-        },
-      });
-      return response;
-    } catch (e) {
-      return e as AxiosError;
-    }
+  get = async (url: string, query: object) => {
+    const response = await axios
+      .get(this.apiUrl + url, {
+        params: { ...query, key: this.authKey },
+      })
+      .then((res) => {
+        return res.data;
+      })
+      .catch((err) => err);
+    return response;
+  };
+
+  getIp = async () => {
+    const res = await axios.get("https://api.ipify.org/?format=json");
+    return res.data.ip;
   };
 }

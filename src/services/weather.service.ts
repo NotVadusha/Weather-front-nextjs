@@ -9,10 +9,13 @@ class WeatherService {
     this.api = new HttpService("https://api.weatherapi.com/v1", this.authKey);
   }
 
-  getCurrentViaLocation = async (
-    location: string
-  ): Promise<AxiosResponse | AxiosError> => {
+  getCurrentViaLocation = async (location: string) => {
     return await this.api.get(`/current.json`, { q: location });
+  };
+
+  getCurrentViaIp = async () => {
+    const ip = await this.api.getIp();
+    return await this.api.get(`/current.json`, { q: ip });
   };
 }
 
