@@ -1,4 +1,4 @@
-export interface WeatherResponse {
+export interface CurrentWeatherResponse {
   location: object;
   current: {
     last_updated_epoch: number;
