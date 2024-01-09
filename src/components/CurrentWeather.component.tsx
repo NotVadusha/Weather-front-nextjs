@@ -1,21 +1,22 @@
+"use client";
+
 import React, { useEffect, useState } from "react";
 import { Typography, Box } from "@mui/material";
 import Image from "next/image";
-import { WeatherResponse } from "../types/WeatherResponse";
+import { CurrentWeatherResponse } from "../types/CurrentWeatherResponse";
 import { weatherService } from "../services/weather.service";
 
 interface CurrentWeatherProps {}
 
 export default function CurrentWeather() {
-  const [data, setData] = useState<WeatherResponse | null>(null);
+  const [data, setData] = useState<CurrentWeatherResponse | null>(null);
   useEffect(() => {
     const weatherPromise = weatherService.getCurrentViaIp();
-    weatherPromise.then((res) => setData(res as WeatherResponse));
+    weatherPromise.then((res) => setData(res as CurrentWeatherResponse));
   }, []);
 
   return (
     <Box
-      maxWidth={500}
       p={1}
       bgcolor={"white"}
       display={"flex"}
