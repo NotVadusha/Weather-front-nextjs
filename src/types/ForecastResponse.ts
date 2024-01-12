@@ -4,7 +4,7 @@ import { Current } from "./PartTypes";
 export interface ForecastResponse {
   current: Current;
   location: Location;
-  forecast: { forecastday: [] };
+  forecast: { forecastday: ForecastDay[] };
 }
 
 export interface ForecastDay {
