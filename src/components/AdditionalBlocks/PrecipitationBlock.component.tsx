@@ -2,15 +2,13 @@
 import { Box, Collapse, Typography } from "@mui/material";
 import React, { useState } from "react";
 
-type Props = {
+type PrecipitationBlockProps = {
   precipitation: number;
-  isAnimationStarted: boolean;
 };
 
 export default function PrecipitationBlock({
   precipitation,
-  isAnimationStarted,
-}: Props) {
+}: PrecipitationBlockProps) {
   return (
     <>
       {precipitation !== null ? (
@@ -21,7 +19,7 @@ export default function PrecipitationBlock({
           bgcolor={"white"}
           color="initial"
         >
-          <Collapse in={isAnimationStarted} orientation="vertical">
+          <Collapse in={true} orientation="vertical">
             <Box bgcolor={"blue"} height={"100px"} width={"100%"}>
               <Typography>{precipitation} mm</Typography>
             </Box>

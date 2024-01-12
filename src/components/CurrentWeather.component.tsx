@@ -5,16 +5,16 @@ import { Typography, Box } from "@mui/material";
 import Image from "next/image";
 import { CurrentWeatherResponse } from "../types/CurrentWeatherResponse";
 import { weatherService } from "../services/weather.service";
+import { ForecastResponse } from "../types/ForecastResponse";
+import { Current } from "../types/PartTypes";
 
-interface CurrentWeatherProps {}
+interface CurrentWeatherProps {
+  currentWeather: Current;
+}
 
-export default function CurrentWeather() {
-  const [data, setData] = useState<CurrentWeatherResponse | null>(null);
-  useEffect(() => {
-    const weatherPromise = weatherService.getCurrentViaIp();
-    weatherPromise.then((res) => setData(res as CurrentWeatherResponse));
-  }, []);
-
+export default function CurrentWeather({
+  currentWeather,
+}: CurrentWeatherProps) {
   return (
     <Box
       p={1}
@@ -23,7 +23,7 @@ export default function CurrentWeather() {
       flexDirection={"column"}
       gap={2}
     >
-      {data && (
+      {currentWeather && (
         <Box color="initial">
           <Box>
             <Typography variant="h6">Current weather</Typography>
@@ -38,21 +38,21 @@ export default function CurrentWeather() {
 
           <Box width={"fit-content"} mx={"auto"}>
             <Image
-              src={"https:" + data.current.condition.icon}
+              src={"https:" + currentWeather.condition.icon}
               width={100}
               height={100}
               alt="1"
             />
             <Box display={"inline-block"}>
-              <Typography variant="h2">{data.current.temp_c}°C</Typography>
+              <Typography variant="h2">{currentWeather.temp_c}°C</Typography>
               <Typography variant="body1">
-                RealFeel {data.current.feelslike_c}°C
+                RealFeel {currentWeather.feelslike_c}°C
               </Typography>
             </Box>
           </Box>
           <Box display={"flex"} justifyContent={"space-between"}>
             <Typography variant="body1" width={"fit-content"}>
-              {data.current.condition.text}
+              {currentWeather.condition.text}
             </Typography>
             <a href="">
               <Typography variant="body1" width={"fit-content"}>
