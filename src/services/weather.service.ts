@@ -17,6 +17,26 @@ class WeatherService {
     const ip = await this.api.getIp();
     return await this.api.get(`/current.json`, { q: ip });
   };
+
+  getForecastViaIp = async () => {
+    const ip = await this.api.getIp();
+    return await this.api.get(`/forecast.json`, { q: ip });
+  };
+
+  getForecastViaLocation = async (location: string) => {
+    const ip = await this.api.getIp();
+    return await this.api.get(`/forecast.json`, { q: location });
+  };
+
+  getAstronomyViaIp = async () => {
+    const ip = await this.api.getIp();
+    return await this.api.get(`/astronomy.json`, { q: ip });
+  };
+
+  getAstronomyViaLocation = async (location: string) => {
+    const ip = await this.api.getIp();
+    return await this.api.get(`/astronomy.json`, { q: location });
+  };
 }
 
 export const weatherService = new WeatherService();
