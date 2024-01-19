@@ -1,5 +1,5 @@
 import { astro } from "./AstronomyResponse";
-import { Current } from "./PartTypes";
+import { Current, Location } from "./PartTypes";
 
 export interface ForecastResponse {
   current: Current;
