@@ -23,7 +23,10 @@ const HomePage = () => {
     }, 60000 - date.getSeconds() * 1000);
   }, [date]);
 
-  const theme = getTheme(forecast ? !Boolean(forecast.current.is_day) : false);
+  const theme = getTheme(
+    forecast ? !Boolean(forecast.current.is_day) : false,
+    forecast ? forecast.current.temp_c : 0
+  );
 
   return (
     <main>
@@ -36,7 +39,8 @@ const HomePage = () => {
             left: 0,
             right: 0,
             zIndex: -1,
-            backgroundImage: `url(${getMainBackground(
+            backgroundImage: `linear-gradient(rgba(0,0,0,0.35) 70%, rgba(255,255,255,0.1)),
+            url(${getMainBackground(
               Boolean(forecast?.current.is_day),
               forecast ? forecast.current.temp_c : 0
             )})`,

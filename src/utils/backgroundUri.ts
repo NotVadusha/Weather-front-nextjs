@@ -1,4 +1,4 @@
-const TEMP_BREAKPOINTS = {
+export const TEMP_BREAKPOINTS = {
   veryCold: -10,
   cold: 10,
   normal: 24,
