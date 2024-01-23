@@ -18,10 +18,10 @@ export default function CurrentWeather({
 }: CurrentWeatherProps) {
   const theme = useTheme();
 
+  const mainColor = alpha(theme.palette.primary.main, 0.7);
+
   return (
     <Box
-      bgcolor={alpha(theme.palette.primary.contrastText, 0.5)}
-      margin="auto"
       borderRadius={"15px"}
       p={2}
       sx={{
@@ -36,17 +36,24 @@ export default function CurrentWeather({
     >
       {forecast && (
         <Box
-          bgcolor={alpha(theme.palette.primary.main, 0.4)}
+          lineHeight={1.5}
           px={2}
           pt={4}
           borderRadius={"10px"}
           display={"flex"}
           flexDirection={"row"}
           justifyContent={"space-between"}
+          bgcolor={alpha(theme.palette.background.default, 0.6)}
           color={theme.palette.text.primary}
           boxShadow={20}
           borderColor={theme.palette.secondary.contrastText}
           border={1}
+          sx={{
+            backgroundImage: `linear-gradient(to right top, ${mainColor} , ${alpha(
+              mainColor,
+              0.2
+            )}, ${mainColor})`,
+          }}
         >
           <Box width={"fit-content"}>
             <Typography
@@ -55,10 +62,10 @@ export default function CurrentWeather({
             >
               {forecast.current.temp_c}°
             </Typography>
-            <Typography variant="body2" color={theme.palette.text.secondary}>
+            <Typography variant="body1" color={theme.palette.text.secondary}>
               Feels like {forecast.current.feelslike_c}°
             </Typography>
-            <Typography variant="body1">
+            <Typography variant="body1" component={"p"}>
               {forecast.location.name +
                 ", " +
                 forecast.location.region +
