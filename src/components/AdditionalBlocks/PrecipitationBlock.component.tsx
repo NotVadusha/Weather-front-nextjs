@@ -1,34 +1,52 @@
 "use client";
-import { Box, Collapse, Typography } from "@mui/material";
 import React, { useState } from "react";
+import { Box, Collapse, Skeleton, Typography, useTheme } from "@mui/material";
+import WavesOutlinedIcon from "@mui/icons-material/WavesOutlined";
+import { blue } from "@mui/material/colors";
 
-type Props = {
+type PrecipitationBlockProps = {
   precipitation: number;
-  isAnimationStarted: boolean;
 };
 
 export default function PrecipitationBlock({
   precipitation,
-  isAnimationStarted,
-}: Props) {
+}: PrecipitationBlockProps) {
+  const [animation, setAnimation] = useState<boolean>(false);
+  setTimeout(() => setAnimation(true), 1000);
+
+  const theme = useTheme();
+
   return (
     <>
       {precipitation !== null ? (
         <Box
-          display={"block"}
-          flexDirection={"column"}
-          gap={2}
-          bgcolor={"white"}
-          color="initial"
+          sx={{
+            backgroundImage: `linear-gradient(to top, ${blue[800]} ${
+              precipitation * 100
+            }%, rgba(255, 255, 255, 1) ${precipitation * 100}%)`,
+          }}
+          borderRadius={"6px"}
+          border={2}
+          borderColor={theme.palette.primary.main}
+          minWidth={"4rem"}
         >
-          <Collapse in={isAnimationStarted} orientation="vertical">
-            <Box bgcolor={"blue"} height={"100px"} width={"100%"}>
-              <Typography>{precipitation} mm</Typography>
+          <Box
+            display={"flex"}
+            flexDirection={"column"}
+            justifyContent="center"
+            alignContent="center"
+            height={"100%"}
+          >
+            <Box width={"fit-content"} mx="auto">
+              <WavesOutlinedIcon />
             </Box>
-          </Collapse>
+            <Typography variant="body1" textAlign={"center"}>
+              {precipitation} mm
+            </Typography>
+          </Box>
         </Box>
       ) : (
-        <Typography>No info</Typography>
+        <Skeleton />
       )}
     </>
   );

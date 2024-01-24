@@ -1,64 +1,101 @@
 "use client";
-
-import React, { useEffect, useState } from "react";
-import { Typography, Box } from "@mui/material";
+import React from "react";
+import { Typography, Box, useTheme } from "@mui/material";
+import { alpha } from "@mui/material/styles";
 import Image from "next/image";
-import { CurrentWeatherResponse } from "../types/CurrentWeatherResponse";
-import { weatherService } from "../services/weather.service";
+import { format } from "date-fns";
+import { ForecastResponse } from "../types/ForecastResponse";
+import { getMainBackground } from "../utils/backgroundUri";
 
-interface CurrentWeatherProps {}
+interface CurrentWeatherProps {
+  forecast: ForecastResponse;
+  date: Date;
+}
 
-export default function CurrentWeather() {
-  const [data, setData] = useState<CurrentWeatherResponse | null>(null);
-  useEffect(() => {
-    const weatherPromise = weatherService.getCurrentViaIp();
-    weatherPromise.then((res) => setData(res as CurrentWeatherResponse));
-  }, []);
+export default function CurrentWeather({
+  forecast,
+  date,
+}: CurrentWeatherProps) {
+  const theme = useTheme();
+
+  const mainColor = alpha(theme.palette.primary.main, 0.7);
 
   return (
     <Box
-      p={1}
-      bgcolor={"white"}
-      display={"flex"}
-      flexDirection={"column"}
-      gap={2}
+      borderRadius={"15px"}
+      p={2}
+      sx={{
+        backgroundImage: `url(${getMainBackground(
+          Boolean(forecast?.current.is_day),
+          forecast ? forecast.current.temp_c : 0
+        )})`,
+        backgroundPositionY: "center",
+      }}
+      boxShadow={20}
+      borderColor={theme.palette.secondary.contrastText}
     >
-      {data && (
-        <Box color="initial">
-          <Box>
-            <Typography variant="h6">Current weather</Typography>
+      {forecast && (
+        <Box
+          lineHeight={1.5}
+          px={2}
+          pt={4}
+          borderRadius={"10px"}
+          display={"flex"}
+          flexDirection={"row"}
+          justifyContent={"space-between"}
+          bgcolor={alpha(theme.palette.background.default, 0.6)}
+          color={theme.palette.text.primary}
+          boxShadow={20}
+          borderColor={theme.palette.secondary.contrastText}
+          border={1}
+          sx={{
+            backgroundImage: `linear-gradient(to right top, ${mainColor} , ${alpha(
+              mainColor,
+              0.2
+            )}, ${mainColor})`,
+          }}
+        >
+          <Box width={"fit-content"}>
+            <Typography
+              variant="h2"
+              fontWeight={theme.typography.fontWeightMedium}
+            >
+              {forecast.current.temp_c}°
+            </Typography>
+            <Typography variant="body1" color={theme.palette.text.secondary}>
+              Feels like {forecast.current.feelslike_c}°
+            </Typography>
+            <Typography variant="body1" component={"p"}>
+              {forecast.location.name +
+                ", " +
+                forecast.location.region +
+                ", " +
+                forecast.location.country}
+            </Typography>
+          </Box>
+          <Box
+            textAlign={"right"}
+            display={"flex"}
+            flexDirection={"column"}
+            justifyContent={"flex-end"}
+            alignItems={"flex-end"}
+          >
+            <Image
+              src={"https:" + forecast.current.condition.icon}
+              width={75}
+              height={75}
+              alt="Current sky state"
+            />
             <Typography variant="body1">
-              {new Date().toLocaleString("en-US", {
+              {date.toLocaleString("en-US", {
                 hour: "numeric",
                 minute: "numeric",
                 hour12: true,
               })}
             </Typography>
-          </Box>
-
-          <Box width={"fit-content"} mx={"auto"}>
-            <Image
-              src={"https:" + data.current.condition.icon}
-              width={100}
-              height={100}
-              alt="1"
-            />
-            <Box display={"inline-block"}>
-              <Typography variant="h2">{data.current.temp_c}°C</Typography>
-              <Typography variant="body1">
-                RealFeel {data.current.feelslike_c}°C
-              </Typography>
-            </Box>
-          </Box>
-          <Box display={"flex"} justifyContent={"space-between"}>
-            <Typography variant="body1" width={"fit-content"}>
-              {data.current.condition.text}
+            <Typography variant="body1">
+              {forecast.current.condition.text + ", " + format(date, "eeee")}
             </Typography>
-            <a href="">
-              <Typography variant="body1" width={"fit-content"}>
-                MORE DETAILS
-              </Typography>
-            </a>
           </Box>
         </Box>
       )}

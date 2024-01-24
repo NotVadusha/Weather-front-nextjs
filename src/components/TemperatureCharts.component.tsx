@@ -1,8 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
-import { CurrentWeatherResponse } from "../types/CurrentWeatherResponse";
 import { weatherService } from "../services/weather.service";
-import { Box } from "@mui/material";
+import { Box, useTheme } from "@mui/material";
 import { LineChart } from "@mui/x-charts";
 import { ForecastResponse, HourElement } from "../types/ForecastResponse";
 
@@ -12,15 +11,23 @@ type Props = {
 
 const TemperatureCharts = ({ hours }: Props) => {
   const [forecast, setForecast] = useState<ForecastResponse | null>(null);
-  const [isAnimationStarted, setIsAnimationStarted] = useState<boolean>(false);
 
   useEffect(() => {
     const weatherPromise = weatherService.getForecastViaIp();
     weatherPromise.then((res) => setForecast(res as ForecastResponse));
   }, []);
 
+  const theme = useTheme();
+
   return (
-    <Box>
+    <Box
+      sx={{
+        backgroundImage: `linear-gradient(to right top, ${theme.palette.primary.light}, rgba(255,255,255,0.5))`,
+      }}
+      borderRadius={"10px"}
+      border={2}
+      borderColor={theme.palette.primary.main}
+    >
       <LineChart
         series={[
           {
@@ -32,11 +39,11 @@ const TemperatureCharts = ({ hours }: Props) => {
         xAxis={[
           {
             scaleType: "point",
-            data: new Array(24).fill(0).map((val, i, arr) => i),
+            data: new Array(24).fill(0).map((val, i, arr) => `${i + 1}h`),
           },
         ]}
         title="Forecast for today"
-        colors={["white"]}
+        colors={[`${theme.palette.primary.main}`]}
         width={800}
         height={300}
       />

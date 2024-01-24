@@ -1,40 +1,36 @@
 "use client";
-import { Box } from "@mui/material";
+import { Box, Stack, useTheme } from "@mui/material";
 import AstronomyBlock from "./AdditionalBlocks/AstronomyBlock.component";
 import PrecipitationBlock from "./AdditionalBlocks/PrecipitationBlock.component";
 import WindsBlock from "./AdditionalBlocks/WindsBlock.component";
 import { useEffect, useState } from "react";
 import { CurrentWeatherResponse } from "../types/CurrentWeatherResponse";
 import { weatherService } from "../services/weather.service";
+import { Current } from "../types/PartTypes";
 
-type Props = {};
+type AdditionalInfoProps = {
+  currentWeather: Current;
+};
 
-const AdditionalInfo = () => {
-  const [currentWeather, setCurrentWeather] =
-    useState<CurrentWeatherResponse | null>(null);
-  const [isAnimationStarted, setIsAnimationStarted] = useState<boolean>(false);
-
-  useEffect(() => {
-    const weatherPromise = weatherService.getCurrentViaIp();
-    weatherPromise.then((res) =>
-      setCurrentWeather(res as CurrentWeatherResponse)
-    );
-    setTimeout(() => setIsAnimationStarted(true), 1000);
-  }, []);
+const AdditionalInfo = ({ currentWeather }: AdditionalInfoProps) => {
+  const theme = useTheme();
 
   return (
-    <Box display={"flex"} flexDirection={"row"}>
+    <Stack
+      direction={"row"}
+      justifyContent={"space-between"}
+      spacing={2}
+      py={5}
+      color={theme.palette.text.primary}
+    >
       {currentWeather && (
         <>
           <WindsBlock currentWeather={currentWeather} />
           <AstronomyBlock />
-          <PrecipitationBlock
-            isAnimationStarted={isAnimationStarted}
-            precipitation={currentWeather.current.precip_mm}
-          />
+          <PrecipitationBlock precipitation={currentWeather.precip_mm} />
         </>
       )}
-    </Box>
+    </Stack>
   );
 };
 

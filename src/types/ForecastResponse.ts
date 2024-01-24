@@ -1,10 +1,10 @@
 import { astro } from "./AstronomyResponse";
-import { Current } from "./PartTypes";
+import { Current, Location } from "./PartTypes";
 
 export interface ForecastResponse {
   current: Current;
   location: Location;
-  forecast: { forecastday: [] };
+  forecast: { forecastday: ForecastDay[] };
 }
 
 export interface ForecastDay {

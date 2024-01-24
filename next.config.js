@@ -14,6 +14,12 @@ const nextConfig = {
         port: "",
         pathname: "/weather/**",
       },
+      {
+        protocol: "https",
+        hostname: "api.ipify.org",
+        port: "80",
+        pathname: "/?format=json",
+      },
     ],
   },
 };
