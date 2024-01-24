@@ -1,5 +1,5 @@
 "use client";
-import { Box } from "@mui/material";
+import { Box, Stack, useTheme } from "@mui/material";
 import AstronomyBlock from "./AdditionalBlocks/AstronomyBlock.component";
 import PrecipitationBlock from "./AdditionalBlocks/PrecipitationBlock.component";
 import WindsBlock from "./AdditionalBlocks/WindsBlock.component";
@@ -13,8 +13,16 @@ type AdditionalInfoProps = {
 };
 
 const AdditionalInfo = ({ currentWeather }: AdditionalInfoProps) => {
+  const theme = useTheme();
+
   return (
-    <Box display={"flex"} flexDirection={"row"}>
+    <Stack
+      direction={"row"}
+      justifyContent={"space-between"}
+      spacing={2}
+      py={5}
+      color={theme.palette.text.primary}
+    >
       {currentWeather && (
         <>
           <WindsBlock currentWeather={currentWeather} />
@@ -22,7 +30,7 @@ const AdditionalInfo = ({ currentWeather }: AdditionalInfoProps) => {
           <PrecipitationBlock precipitation={currentWeather.precip_mm} />
         </>
       )}
-    </Box>
+    </Stack>
   );
 };
 
