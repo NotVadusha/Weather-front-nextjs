@@ -22,7 +22,7 @@ const TemperatureCharts = ({ hours }: Props) => {
   return (
     <Box
       sx={{
-        backgroundImage: `linear-gradient(to right top, ${theme.palette.primary.light}, rgba(255,255,255,0.5))`,
+        backgroundImage: `linear-gradient(to right top, ${theme.palette.primary.light}, rgba(255,255,255,0))`,
       }}
       borderRadius={"10px"}
       border={2}
