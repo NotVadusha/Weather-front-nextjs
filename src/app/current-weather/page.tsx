@@ -1,13 +1,13 @@
 "use client";
 import { useState, useEffect } from "react";
 import { Box, Container, ThemeProvider, alpha } from "@mui/material";
-import CurrentWeather from "../components/CurrentWeather.component";
-import AdditionalInfo from "../components/AdditionalInfo.component";
-import TemperatureCharts from "../components/TemperatureCharts.component";
-import { weatherService } from "../services/weather.service";
-import { ForecastResponse } from "../types/ForecastResponse";
-import { getMainBackground } from "../utils/backgroundUri";
-import { getTheme } from "../utils/materialTheme";
+import CurrentWeather from "../../components/CurrentWeather.component";
+import AdditionalInfo from "../../components/AdditionalInfo.component";
+import TemperatureCharts from "../../components/TemperatureCharts.component";
+import { weatherService } from "../../services/weather.service";
+import { ForecastResponse } from "../../types/ForecastResponse";
+import { getMainBackground } from "../../utils/backgroundUri";
+import { getTheme } from "../../utils/materialTheme";
 
 const HomePage = () => {
   const [forecast, setForecast] = useState<ForecastResponse | null>(null);
