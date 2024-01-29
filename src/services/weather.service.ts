@@ -20,7 +20,7 @@ class WeatherService {
 
   getForecastViaIp = async () => {
     const ip = await this.api.getIp();
-    return await this.api.get(`/forecast.json`, { q: ip });
+    return await this.api.get(`/forecast.json`, { q: ip, days: 3 });
   };
 
   getForecastViaLocation = async (location: string) => {
