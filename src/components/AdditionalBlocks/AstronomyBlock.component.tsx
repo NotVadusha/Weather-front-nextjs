@@ -1,17 +1,16 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import { Typography, Icon, useTheme, alpha } from "@mui/material";
-import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
+
+import { weatherService } from "@/src/services/weather.service";
+import { AstronomyResponse } from "@/src/types/AstronomyResponse";
 import BedtimeOffOutlinedIcon from "@mui/icons-material/BedtimeOffOutlined";
-import Brightness5OutlinedIcon from "@mui/icons-material/Brightness5Outlined";
 import Brightness1OutlinedIcon from "@mui/icons-material/Brightness1Outlined";
+import Brightness5OutlinedIcon from "@mui/icons-material/Brightness5Outlined";
+import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
+import { alpha, Typography, useTheme } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
-import { weatherService } from "../../services/weather.service";
-import { AstronomyResponse } from "../../types/AstronomyResponse";
+import { useEffect, useState } from "react";
 
-type Props = {};
-
-export default function AstronomyBlock({}: Props) {
+export default function AstronomyBlock() {
   const [astronomy, setAstronomy] = useState<AstronomyResponse | null>(null);
 
   useEffect(() => {

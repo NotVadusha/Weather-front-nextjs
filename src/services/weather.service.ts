@@ -1,4 +1,3 @@
-import { AxiosError, AxiosResponse } from "axios";
 import HttpService from "./http.service";
 
 class WeatherService {

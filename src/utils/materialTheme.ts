@@ -1,3 +1,5 @@
+"use client";
+
 import { ThemeOptions, createTheme } from "@mui/material";
 import { Poppins } from "next/font/google";
 import { TEMP_BREAKPOINTS } from "./backgroundUri";
