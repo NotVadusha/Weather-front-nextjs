@@ -1,11 +1,11 @@
 "use client";
-import React from "react";
-import { Typography, Box, useTheme } from "@mui/material";
+
+import { ForecastResponse } from "@/src/types/ForecastResponse";
+import { getMainBackground } from "@/src/utils/backgroundUri";
+import { Box, Typography, useTheme } from "@mui/material";
 import { alpha } from "@mui/material/styles";
-import Image from "next/image";
 import { format } from "date-fns";
-import { ForecastResponse } from "../types/ForecastResponse";
-import { getMainBackground } from "../utils/backgroundUri";
+import Image from "next/image";
 
 interface CurrentWeatherProps {
   forecast: ForecastResponse;
@@ -27,7 +27,7 @@ export default function CurrentWeather({
       sx={{
         backgroundImage: `url(${getMainBackground(
           Boolean(forecast?.current.is_day),
-          forecast ? forecast.current.temp_c : 0
+          forecast ? forecast.current.temp_c : 0,
         )})`,
         backgroundPositionY: "center",
       }}
@@ -51,7 +51,7 @@ export default function CurrentWeather({
           sx={{
             backgroundImage: `linear-gradient(to right top, ${mainColor} , ${alpha(
               mainColor,
-              0.2
+              0.2,
             )}, ${mainColor})`,
           }}
         >

@@ -1,8 +1,9 @@
 "use client";
-import React, { useState } from "react";
-import { Box, Collapse, Skeleton, Typography, useTheme } from "@mui/material";
+
 import WavesOutlinedIcon from "@mui/icons-material/WavesOutlined";
+import { Box, Skeleton, Typography, useTheme } from "@mui/material";
 import { blue } from "@mui/material/colors";
+import { useState } from "react";
 
 type PrecipitationBlockProps = {
   precipitation: number;
