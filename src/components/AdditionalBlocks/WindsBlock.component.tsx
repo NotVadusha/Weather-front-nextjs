@@ -1,12 +1,12 @@
 "use client";
-import React from "react";
-import { Typography, useTheme, alpha, Box } from "@mui/material";
-import Grid from "@mui/material/Unstable_Grid2";
-import ExploreOutlinedIcon from "@mui/icons-material/ExploreOutlined";
+
+import { Current } from "@/src/types/PartTypes";
 import AirOutlinedIcon from "@mui/icons-material/AirOutlined";
 import CompressOutlinedIcon from "@mui/icons-material/CompressOutlined";
+import ExploreOutlinedIcon from "@mui/icons-material/ExploreOutlined";
 import WaterDropOutlinedIcon from "@mui/icons-material/WaterDropOutlined";
-import { Current } from "@/src/types/PartTypes";
+import { alpha, Box, Typography, useTheme } from "@mui/material";
+import Grid from "@mui/material/Unstable_Grid2";
 
 type Props = {
   currentWeather: Current;

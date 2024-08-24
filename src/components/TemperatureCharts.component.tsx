@@ -1,22 +1,14 @@
 "use client";
-import { useEffect, useState } from "react";
-import { weatherService } from "../services/weather.service";
+
+import { HourElement } from "@/src/types/ForecastResponse";
 import { Box, useTheme } from "@mui/material";
 import { LineChart } from "@mui/x-charts";
-import { ForecastResponse, HourElement } from "../types/ForecastResponse";
 
 type Props = {
   hours: Array<HourElement>;
 };
 
 const TemperatureCharts = ({ hours }: Props) => {
-  const [forecast, setForecast] = useState<ForecastResponse | null>(null);
-
-  useEffect(() => {
-    const weatherPromise = weatherService.getForecastViaIp();
-    weatherPromise.then((res) => setForecast(res as ForecastResponse));
-  }, []);
-
   const theme = useTheme();
 
   return (
