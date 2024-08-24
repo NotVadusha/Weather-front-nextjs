@@ -1,13 +1,13 @@
 "use client";
+import WeatherCard from "@/src/components/WeatherCard.component";
 import { Box, Container, Stack } from "@mui/material";
-import { ThemeProvider, alpha, createTheme } from "@mui/material/styles";
+import { ThemeProvider, alpha } from "@mui/material/styles";
+import { LineChart } from "@mui/x-charts";
+import { useEffect, useState } from "react";
 import { weatherService } from "../../services/weather.service";
 import { ForecastResponse } from "../../types/ForecastResponse";
 import { getMainBackground } from "../../utils/backgroundUri";
 import { getTheme } from "../../utils/materialTheme";
-import WeatherCard from "@/src/components/WeatherCard.component";
-import { useEffect, useState } from "react";
-import { LineChart } from "@mui/x-charts";
 
 const ForecastPage = () => {
   const [forecast, setForecast] = useState<ForecastResponse | null>(null);
@@ -25,7 +25,7 @@ const ForecastPage = () => {
 
   const theme = getTheme(
     forecast ? !Boolean(forecast.current.is_day) : false,
-    forecast ? forecast.current.temp_c : 0
+    forecast ? forecast.current.temp_c : 0,
   );
   return (
     <>
@@ -41,7 +41,7 @@ const ForecastPage = () => {
             backgroundImage: `linear-gradient(rgba(0,0,0,0.35) 70%, rgba(255,255,255,0.1)),
             url(${getMainBackground(
               Boolean(forecast?.current.is_day),
-              forecast ? forecast.current.temp_c : 0
+              forecast ? forecast.current.temp_c : 0,
             )})`,
             backgroundRepeat: "no-repeat",
             backgroundSize: "cover",
@@ -60,7 +60,7 @@ const ForecastPage = () => {
                   {
                     curve: "natural",
                     data: forecast?.forecast.forecastday.map(
-                      (day) => day.day.avgtemp_c
+                      (day) => day.day.avgtemp_c,
                     ),
                     area: false,
                   },
@@ -81,6 +81,7 @@ const ForecastPage = () => {
               <>
                 {forecast?.forecast.forecastday.map((item) => (
                   <WeatherCard
+                    key={item?.date}
                     forecastDay={item}
                     location={forecast.location}
                   />
